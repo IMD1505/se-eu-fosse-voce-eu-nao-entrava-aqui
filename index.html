@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>se-eu-fosse-voce-eu-nao-entrava-aqui</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+
+<body>
+
+    <!-- TELA DE SENHA -->
+    <section id="passwordScreen" class="screen active">
+        <div class="card">
+            <div class="logo">SE EU FOSSE VOCÊ</div>
+
+            <h1>eu não entrava aqui</h1>
+
+            <p class="subtitle">
+                Acesso protegido
+            </p>
+
+            <form id="passwordForm">
+                <input
+                    id="passwordInput"
+                    type="password"
+                    autocomplete="off"
+                    placeholder="Digite a senha"
+                    required
+                >
+
+                <button type="submit">
+                    Entrar
+                </button>
+            </form>
+
+            <p id="passwordError" class="error"></p>
+        </div>
+    </section>
+
+
+    <!-- ESCOLHA DO USUÁRIO -->
+    <section id="userScreen" class="screen">
+        <div class="card user-card">
+
+            <div class="logo">ACESSO LIBERADO</div>
+
+            <h1>Quem é você?</h1>
+
+            <p class="subtitle">
+                Escolha um usuário para entrar
+            </p>
+
+            <div class="users">
+
+                <button class="userButton" data-user="Ravi">
+                    <span class="avatar">R</span>
+                    <span>Ravi</span>
+                </button>
+
+                <button class="userButton" data-user="Iuri">
+                    <span class="avatar">I</span>
+                    <span>Iuri</span>
+                </button>
+
+                <button class="userButton" data-user="Outro">
+                    <span class="avatar">+</span>
+                    <span>Outro</span>
+                </button>
+
+            </div>
+
+            <div id="otherUserBox" class="hidden">
+                <input
+                    id="otherUserInput"
+                    type="text"
+                    maxlength="30"
+                    placeholder="Digite seu nome"
+                >
+
+                <button id="otherUserConfirm">
+                    Continuar
+                </button>
+            </div>
+
+            <p id="userError" class="error"></p>
+
+        </div>
+    </section>
+
+
+    <!-- ENTRADA NA SALA -->
+    <section id="roomScreen" class="screen">
+        <div class="card">
+
+            <div class="logo">SALA</div>
+
+            <h1>Entrar em uma sala</h1>
+
+            <p class="subtitle">
+                Crie uma sala ou entre em uma existente.
+            </p>
+
+            <input
+                id="roomInput"
+                type="text"
+                maxlength="30"
+                placeholder="Código da sala"
+                autocomplete="off"
+            >
+
+            <button id="enterRoomButton">
+                Entrar na sala
+            </button>
+
+            <p id="roomError" class="error"></p>
+
+            <div class="divider">
+                <span>ou</span>
+            </div>
+
+            <button id="createRoomButton" class="secondary">
+                Criar nova sala
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- APLICAÇÃO -->
+    <main id="app" class="hidden">
+
+        <header class="topbar">
+
+            <div class="brand">
+                <span>se-eu-fosse-voce-eu-nao-entrava-aqui</span>
+            </div>
+
+            <div class="roomInfo">
+                <span>Sala:</span>
+                <strong id="roomName">---</strong>
+
+                <button id="copyRoomButton" title="Copiar código da sala">
+                    Copiar
+                </button>
+            </div>
+
+            <div class="connectionStatus">
+                <span id="statusDot"></span>
+                <span id="connectionStatusText">Conectando...</span>
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <!-- VÍDEOS -->
+            <section class="videoArea">
+
+                <div id="videoGrid" class="videoGrid">
+
+                    <!-- Vídeo local -->
+                    <article class="videoCard localVideoCard">
+
+                        <video
+                            id="localVideo"
+                            autoplay
+                            muted
+                            playsinline
+                        ></video>
+
+                        <div class="videoLabel">
+                            <span id="localName">Você</span>
+                            <span class="youBadge">VOCÊ</span>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div id="emptyCall" class="emptyCall">
+                    <div class="emptyIcon">◉</div>
+                    <h2>Aguardando participantes</h2>
+                    <p>Compartilhe o código da sala para alguém entrar.</p>
+                </div>
+
+            </section>
+
+
+            <!-- PAINEL LATERAL -->
+            <aside class="sidebar">
+
+                <div class="sidebarHeader">
+                    <h2>Participantes</h2>
+                    <span id="participantCount">1</span>
+                </div>
+
+                <div id="participantList" class="participantList"></div>
+
+
+                <!-- CHAT -->
+                <section class="chat">
+
+                    <div class="chatHeader">
+                        <h2>Chat</h2>
+                    </div>
+
+                    <div id="messages" class="messages">
+                        <div class="systemMessage">
+                            Você entrou na sala.
+                        </div>
+                    </div>
+
+                    <form id="chatForm" class="chatForm">
+
+                        <input
+                            id="chatInput"
+                            type="text"
+                            maxlength="500"
+                            placeholder="Digite uma mensagem..."
+                            autocomplete="off"
+                        >
+
+                        <button type="submit">
+                            Enviar
+                        </button>
+
+                    </form>
+
+                </section>
+
+
+                <!-- ARQUIVOS -->
+                <section class="filesPanel">
+
+                    <div class="filesHeader">
+                        <h2>Arquivos</h2>
+                    </div>
+
+                    <label class="fileButton">
+                        <input id="fileInput" type="file">
+                        Enviar arquivo
+                    </label>
+
+                    <div id="fileList" class="fileList"></div>
+
+                </section>
+
+            </aside>
+
+        </section>
+
+
+        <!-- CONTROLES -->
+        <footer class="controls">
+
+            <button id="micButton" class="control active">
+                <span>🎤</span>
+                <small>Microfone</small>
+            </button>
+
+            <button id="cameraButton" class="control active">
+                <span>📷</span>
+                <small>Câmera</small>
+            </button>
+
+            <button id="screenButton" class="control">
+                <span>🖥️</span>
+                <small>Tela</small>
+            </button>
+
+            <button id="speakerButton" class="control active">
+                <span>🔊</span>
+                <small>Áudio</small>
+            </button>
+
+            <button id="leaveButton" class="control danger">
+                <span>☎</span>
+                <small>Sair</small>
+            </button>
+
+        </footer>
+
+    </main>
+
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js?v=2"></script>
+
+</body>
+</html>

@@ -1,0 +1,942 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background: #08090c;
+    --surface: #111318;
+    --surface2: #181b21;
+    --surface3: #20242c;
+    --border: #292e38;
+    --text: #f4f5f7;
+    --muted: #9298a3;
+    --accent: #ffffff;
+    --danger: #e5484d;
+    --success: #4cc38a;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   LOGIN / TELAS
+========================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.card {
+    width: min(440px, 100%);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    padding: 38px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.5);
+
+    text-align: center;
+}
+
+.logo {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.card h1 {
+    font-size: clamp(25px, 5vw, 36px);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+
+.card input {
+    width: 100%;
+
+    background: #0b0d11;
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    padding: 14px 16px;
+    outline: none;
+
+    margin-bottom: 12px;
+}
+
+.card input:focus {
+    border-color: #555d6b;
+}
+
+.card > button,
+.card form button,
+#otherUserConfirm {
+    width: 100%;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 14px;
+
+    background: var(--accent);
+    color: #08090c;
+
+    font-weight: 800;
+
+    transition:
+        transform .15s,
+        opacity .15s;
+}
+
+.card button:hover {
+    transform: translateY(-1px);
+}
+
+.card button:active {
+    transform: translateY(0);
+}
+
+.error {
+    min-height: 20px;
+    color: #ff6b70;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+
+/* =========================
+   USUÁRIOS
+========================= */
+
+.users {
+    display: grid;
+    gap: 10px;
+}
+
+.userButton {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: var(--surface2);
+    color: var(--text);
+
+    transition:
+        background .15s,
+        border-color .15s,
+        transform .15s;
+}
+
+.userButton:hover {
+    background: var(--surface3);
+    border-color: #414754;
+    transform: translateY(-1px);
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #292e38;
+    color: white;
+
+    font-weight: 800;
+}
+
+#otherUserBox {
+    margin-top: 12px;
+}
+
+#otherUserBox input {
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   SALA
+========================= */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 20px 0;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.secondary {
+    background: var(--surface2) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+}
+
+
+/* =========================
+   APLICAÇÃO
+========================= */
+
+#app {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    height: 62px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 0 18px;
+
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,9,12,.96);
+}
+
+.brand {
+    flex: 1;
+
+    font-weight: 800;
+    font-size: 13px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.roomInfo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.roomInfo strong {
+    color: var(--text);
+    letter-spacing: 1px;
+}
+
+.roomInfo button {
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+
+    padding: 6px 9px;
+    border-radius: 7px;
+
+    font-size: 11px;
+}
+
+.connectionStatus {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+#statusDot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--success);
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.content {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+}
+
+.videoArea {
+    position: relative;
+
+    flex: 1;
+    min-width: 0;
+
+    padding: 14px;
+
+    overflow: auto;
+}
+
+.videoGrid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(260px, 1fr)
+        );
+
+    gap: 12px;
+}
+
+.videoCard {
+    position: relative;
+
+    min-height: 190px;
+
+    background: #050608;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    aspect-ratio: 16 / 9;
+}
+
+.videoCard video {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.videoLabel {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    background: rgba(0,0,0,.7);
+
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+.youBadge {
+    font-size: 9px;
+    color: var(--muted);
+}
+
+.screenVideo {
+    border-color: #68707e;
+}
+
+.emptyCall {
+    position: absolute;
+
+    inset: 50% auto auto 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+
+    color: var(--muted);
+
+    pointer-events: none;
+}
+
+.emptyIcon {
+    font-size: 42px;
+    margin-bottom: 10px;
+    opacity: .5;
+}
+
+.emptyCall h2 {
+    color: var(--text);
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.emptyCall p {
+    font-size: 13px;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 330px;
+    flex-shrink: 0;
+
+    border-left: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #0d0f13;
+
+    min-height: 0;
+}
+
+.sidebarHeader,
+.chatHeader,
+.filesHeader {
+    height: 50px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebarHeader h2,
+.chatHeader h2,
+.filesHeader h2 {
+    font-size: 13px;
+}
+
+#participantCount {
+    min-width: 22px;
+    height: 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--surface3);
+
+    font-size: 11px;
+}
+
+.participantList {
+    max-height: 145px;
+    overflow: auto;
+
+    padding: 8px;
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px;
+
+    border-radius: 9px;
+}
+
+.participant:hover {
+    background: var(--surface2);
+}
+
+.participantAvatar {
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--surface3);
+
+    border-radius: 50%;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.participantName {
+    font-size: 12px;
+}
+
+.participantYou {
+    margin-left: auto;
+
+    color: var(--muted);
+    font-size: 9px;
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+.chat {
+    flex: 1;
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-top: 1px solid var(--border);
+}
+
+.messages {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow: auto;
+
+    padding: 12px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.messageAuthor {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 3px;
+}
+
+.messageBody {
+    width: fit-content;
+    max-width: 90%;
+
+    background: var(--surface2);
+
+    border-radius: 10px;
+
+    padding: 8px 10px;
+
+    font-size: 12px;
+
+    overflow-wrap: anywhere;
+}
+
+.myMessage .messageBody {
+    margin-left: auto;
+    background: #e9ebef;
+    color: #090a0d;
+}
+
+.systemMessage {
+    color: var(--muted);
+    font-size: 11px;
+    text-align: center;
+
+    margin: 7px 0;
+}
+
+.chatForm {
+    display: flex;
+    gap: 6px;
+
+    padding: 8px;
+
+    border-top: 1px solid var(--border);
+}
+
+.chatForm input {
+    min-width: 0;
+    flex: 1;
+
+    background: var(--surface);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    padding: 9px;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.chatForm button {
+    border: 0;
+    border-radius: 8px;
+
+    background: white;
+    color: black;
+
+    padding: 0 11px;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =========================
+   ARQUIVOS
+========================= */
+
+.filesPanel {
+    border-top: 1px solid var(--border);
+
+    max-height: 170px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.fileButton {
+    margin: 8px;
+
+    padding: 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    text-align: center;
+
+    background: var(--surface2);
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.fileButton:hover {
+    background: var(--surface3);
+}
+
+.fileButton input {
+    display: none;
+}
+
+.fileList {
+    overflow: auto;
+    padding: 0 8px 8px;
+}
+
+.fileItem {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px;
+
+    font-size: 11px;
+
+    border-radius: 7px;
+}
+
+.fileItem:hover {
+    background: var(--surface2);
+}
+
+.fileItem a {
+    color: var(--text);
+    text-decoration: none;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   CONTROLES
+========================= */
+
+.controls {
+    min-height: 82px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-top: 1px solid var(--border);
+
+    background: rgba(8,9,12,.98);
+}
+
+.control {
+    width: 74px;
+    height: 58px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: var(--surface2);
+    color: var(--text);
+}
+
+.control:hover {
+    background: var(--surface3);
+}
+
+.control span {
+    font-size: 18px;
+}
+
+.control small {
+    font-size: 9px;
+    color: var(--muted);
+}
+
+.control.active {
+    border-color: #48505c;
+}
+
+.control.off {
+    opacity: .5;
+}
+
+.control.danger {
+    background: #281416;
+    border-color: #562226;
+}
+
+.control.danger:hover {
+    background: #3b191d;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 100px;
+
+    transform: translateX(-50%) translateY(20px);
+
+    opacity: 0;
+
+    background: #f0f1f3;
+    color: #090a0d;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    pointer-events: none;
+
+    transition:
+        opacity .2s,
+        transform .2s;
+
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 850px) {
+
+    body {
+        overflow: auto;
+    }
+
+    #app {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .topbar {
+        height: auto;
+        min-height: 58px;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+    }
+
+    .brand {
+        width: 100%;
+        flex: none;
+    }
+
+    .roomInfo {
+        flex: 1;
+    }
+
+    .connectionStatus {
+        display: none;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .videoArea {
+        min-height: 60vh;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: 520px;
+
+        border-left: none;
+        border-top: 1px solid var(--border);
+    }
+
+    .controls {
+        position: sticky;
+        bottom: 0;
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+    }
+
+    .control {
+        flex-shrink: 0;
+    }
+
+    .videoGrid {
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(160px, 1fr)
+            );
+    }
+
+    .videoCard {
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .card {
+        padding: 26px 20px;
+        border-radius: 18px;
+    }
+
+    .videoArea {
+        padding: 8px;
+    }
+
+    .videoGrid {
+        gap: 7px;
+    }
+
+    .videoCard {
+        border-radius: 10px;
+    }
+
+    .controls {
+        gap: 6px;
+    }
+
+    .control {
+        width: 64px;
+    }
+}
